@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group">
+        <div *ngIf = "onlyOdd">
+          <li
+            class="list-group-item"
+            [ngClass] = "{odd: odd % 2 !== 0}"
+            [ngStyle] = "{backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}"
+            *ngFor = "let odd of oddNumbers">
+            {{ odd }}
+          </li>
+        </div>
+
+        <!-- The asterisk indicates to Angular that this is a structural directive -->
+        <!-- Behind the scenes, Angular transforms this ngIf usage into something that has property binding, etc. -->
+        <!--<div *ngIf = "!onlyOdd">-->
+          <!--<li-->
+            <!--class="list-group-item"-->
+            <!--[ngClass] = "{odd: even % 2 !== 0}"-->
+            <!--[ngStyle] = "{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"-->
+            <!--*ngFor = "let even of evenNumbers">-->
+            <!--{{ even }}-->
+          <!--</li>-->
+        <!--</div>-->
+
+        <!-- Another way of outputting list above -->
+        <!-- ng-template is an element which itself is not rendered; it provides a template for Angular to use -->
+        <!-- The template lets Angular render the content when the condition is determined to be true -->
+        <!-- We can use property binding, without the asterisk, to make the conditional this way: -->
+        <!--<ng-template [ngIf]="!onlyOdd">-->
+          <!--<div>-->
+            <!--<li-->
+              <!--class="list-group-item"-->
+              <!--[ngClass] = "{odd: even % 2 !== 0}"-->
+              <!--[ngStyle] = "{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"-->
+              <!--*ngFor = "let even of evenNumbers">-->
+              <!--{{ even }}-->
+            <!--</li>-->
+          <!--</div>-->
+        <!--</ng-template>-->
+
+        <!-- Using our new structural directive, hence we need the asterisk -->
+        <div *appUnless = "onlyOdd">
+          <li
+            class="list-group-item"
+            [ngClass] = "{odd: even % 2 !== 0}"
+            [ngStyle] = "{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
+            *ngFor = "let even of evenNumbers">
+            {{ even }}
+          </li>
+        </div>
+
+      </ul>
+      <p appBasicHighlight>Style me with basic directive!</p>
+      <!-- The directive itself being enclosed in square brackets is a typical use case if you only have one property to bind/one main property -->
+      <!-- You can provide an alias - in this case for highlightColor - which is set to 'appBetterHighlight', the directive selector. -->
+      <!-- By default, the directive name is not enclosed in square brackets - this is only if you want to bind to a property that has the same name or is aliased to the selector name -->
+      <!--<p [appBetterHighlight]="'red'" [defaultColor]="'yellow'">Style me with better directive!</p>-->
+
+      <!-- You can remove the square brackets and remove the single quotation marks around the property value -->
+      <!-- For property binding in general, passing a string is a special case and these can be omitted -->
+      <!-- Be careful with this, as it can be confused for a native attribute of the element, but it is property binding -->
+      <!--<p appBetterHighlight defaultColor="yellow" [highlightColor]="'red'">Style me with better directive!</p>-->
+
+      <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'">Style me with better directive!</p>
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">Value is 5</p>
+        <p *ngSwitchCase="10">Value is 10</p>
+        <p *ngSwitchCase="100">Value is 100</p>
+        <p *ngSwitchDefault>Value is Default</p>
+      </div>
+      <!--<ng-template [ngIf]="onlyOdd">-->
+        <!--<p>Only odd</p>-->
+      <!--</ng-template>-->
+    </div>
+  </div>
+</div>
