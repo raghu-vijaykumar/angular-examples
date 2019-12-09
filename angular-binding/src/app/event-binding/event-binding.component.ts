@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventBindingComponent implements OnInit {
 
+  val = 'No button is clicked';
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onBtnClick() {
+    this.val = 'Button Clicked';
   }
 
 }

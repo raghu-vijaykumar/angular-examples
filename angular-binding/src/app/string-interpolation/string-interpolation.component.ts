@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StringInterpolationComponent implements OnInit {
 
+  num = 10;
+  stringx = 'Hi Raghu';
   constructor() { }
 
   ngOnInit() {
